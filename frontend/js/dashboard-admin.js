@@ -131,60 +131,6 @@ async function deleteUser(userId, button) {
   }
 }
 
-// Function to fetch and display courses
-async function loadCourses() {
-  try {
-    const token = localStorage.getItem("token");
-
-    if (!token) {
-      alert("Unauthorized! Please log in again.");
-      window.location.href = "login.html"; // Redirect to login page
-      return;
-    }
-
-    // Fetch courses from API
-    const response = await fetch(`${API_URL}/admin/courses`, {
-      headers: { Authorization: `Bearer ${token}` },
-    });
-
-    if (!response.ok) throw new Error("Failed to fetch courses");
-
-    const courses = await response.json();
-
-    // Select the course list container
-    const courseList = document.getElementById("course-list");
-    courseList.innerHTML = "";
-
-    // If no courses found
-    if (courses.length === 0) {
-      courseList.innerHTML = `<p>No courses found.</p>`;
-      return;
-    }
-
-    // Loop through and create course cards
-    courses.forEach((course) => {
-      const card = document.createElement("div");
-      card.classList.add("card");
-
-      card.innerHTML = `
-        <strong>${course.title}</strong> <br>
-        <small>${course.description}</small> <br>
-        <small>Instructor: ${
-          course.instructorId ? course.instructorId.username : "Unknown"
-        }</small>
-      `;
-
-      courseList.appendChild(card);
-    });
-
-    // Show the courses section after loading
-    document.getElementById("course-section").style.display = "block";
-  } catch (error) {
-    console.error("Error loading courses:", error);
-    alert("Failed to load courses. Please try again later.");
-  }
-}
-
 // Load users and courses on page load
 
 async function loadAdminName() {
@@ -210,5 +156,4 @@ document.getElementById("logout-btn").addEventListener("click", logout);
 document.addEventListener("DOMContentLoaded", () => {
   loadAdminName();
   loadUsers();
-  loadCourses();
 });
