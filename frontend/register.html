@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Register | LMS</title>
+    <link rel="stylesheet" href="css/styles.css">
+    <style>
+        /* Form Styles */
+        form {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            /* Adds space between fields */
+        }
+
+        input {
+            width: 100%;
+            padding: 12px;
+            border-radius: 6px;
+            border: 1px solid #ddd;
+            font-size: 16px;
+        }
+
+        /* Button Styling */
+        .btn {
+            margin-top: 10px;
+            padding: 14px;
+            font-size: 18px;
+        }
+
+        /* Error Message */
+        #register-error {
+            color: red;
+            font-size: 14px;
+            margin-top: 10px;
+            display: none;
+        }
+
+        /* Login Link */
+        .link {
+            margin-top: 20px;
+            font-size: 14px;
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Header -->
+    <header>Learning Management System</header>
+
+    <!-- Main Container -->
+    <div class="container">
+        <h1>Register</h1>
+
+        <!-- Register Form -->
+        <form id="register-form">
+            <input type="text" id="username" placeholder="Username" required>
+            <input type="email" id="email" placeholder="Email" required>
+            <input type="password" id="password" placeholder="Password" required>
+            <button type="submit" class="btn">Register</button>
+        </form>
+
+        <!-- Error Message -->
+        <p id="register-error">Error creating account</p>
+
+        <!-- Login Link -->
+        <p class="link">Already have an account? <a href="login.html">Login here</a></p>
+    </div>
+
+    <script src="js/auth.js"></script>
+</body>
+
+</html>
