@@ -85,6 +85,7 @@ const getMedicalAdvice = async (symptoms) => {
     return "לא הצלחתי למצוא מידע רפואי מתאים, פנה לרופא.";
 };
 
+
 /**
  * @route GET /api/chatbot/history
  * @desc Retrieve the chat history of the authenticated user
