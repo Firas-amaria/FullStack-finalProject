@@ -27,27 +27,6 @@ router.get(
 );
 
 /**
- *  Get All courses (Admin Only)
- */
-// router.get(
-//   "/courses",
-//   authenticateUser,
-//   authorizeRole(["admin"]),
-//   async (req, res) => {
-//     try {
-//       const courses = await Course.find().populate(
-//         "instructorId",
-//         "username email"
-//       ); // Fetch instructor details
-//       res.json(courses);
-//     } catch (error) {
-//       console.error("Error fetching courses:", error);
-//       res.status(500).json({ error: "Failed to fetch courses" });
-//     }
-//   }
-// );
-
-/**
  *  Delete a User (Admin Only)
  */
 router.delete(

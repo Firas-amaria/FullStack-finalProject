@@ -91,11 +91,11 @@ async function updateUserRole(userId, newRole) {
       `button[onclick="updateUserRole('${userId}', '${newRole}')"]`
     );
     button.textContent =
-      newRole === "student" ? "Promote to Instructor" : "Demote to Student";
+      newRole === "patient" ? "Promote to Doctor" : "Demote to patient";
     button.setAttribute(
       "onclick",
       `updateUserRole('${userId}', '${
-        newRole === "student" ? "instructor" : "student"
+        newRole === "patient" ? "doctor" : "patient"
       }')`
     );
 
