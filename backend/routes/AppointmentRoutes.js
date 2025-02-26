@@ -3,6 +3,7 @@ const router = express.Router();
 const Appointment = require('../models/Appointment');
 const { authenticateUser } = require('../middleware/AuthMiddleware');
 
+
 /**
  * Schedule an appointment
  */
