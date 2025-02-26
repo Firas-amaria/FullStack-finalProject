@@ -90,3 +90,5 @@ function logout() {
 document.getElementById("dashboard-link").addEventListener("click", () => {
   window.location.href = "admin_dashboard.html";
 });
+
+document.getElementById("logout-btn").addEventListener("click", logout);
