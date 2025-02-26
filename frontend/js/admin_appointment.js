@@ -1,5 +1,4 @@
-const API_URL = "http://localhost:3000"; // Update as needed
-
+const API_URL = "http://localhost:3000"; // Add /api
 document.addEventListener("DOMContentLoaded", async () => {
   await loadPatients();
   setupCreateAppointment();
@@ -23,7 +22,10 @@ async function loadPatients() {
     patientSelect.innerHTML = patients.length
       ? patients
           .map(
-            (user) => `<option value="${user._id}">${user.username}</option>`
+            (user) =>
+              `<option value="${user._id}">${
+                user.name + "-" + user._id
+              }</option>`
           )
           .join("")
       : "<option value=''>No patients available</option>";
@@ -38,22 +40,34 @@ function setupCreateAppointment() {
     .getElementById("submit-appointment")
     .addEventListener("click", async () => {
       const patientId = document.getElementById("patient-select").value;
+      const doctorName = document.getElementById("doctor-name").value;
+      const specialty = document.getElementById("specialty").value;
       const date = document.getElementById("appointment-date").value;
       const time = document.getElementById("appointment-time").value;
 
-      if (!patientId || !date || !time) {
+      if (!patientId || !doctorName || !specialty || !date || !time) {
         alert("Please fill out all fields.");
         return;
       }
 
+      const appointmentDate = new Date(`${date}T${time}:00`);
+
       try {
+        const token = localStorage.getItem("token");
+
         const response = await fetch(`${API_URL}/appointments`, {
+          // Update API URL
           method: "POST",
           headers: {
             "Content-Type": "application/json",
             Authorization: `Bearer ${token}`,
           },
-          body: JSON.stringify({ patientId, date, time }),
+          body: JSON.stringify({
+            userId: patientId,
+            doctorName,
+            specialty,
+            appointmentDate,
+          }),
         });
 
         if (!response.ok) throw new Error("Failed to create appointment");
@@ -67,6 +81,12 @@ function setupCreateAppointment() {
     });
 }
 
+function logout() {
+  localStorage.removeItem("token");
+  localStorage.removeItem("username");
+  localStorage.removeItem("role");
+  window.location.href = "login.html"; // Redirect to homepage
+}
 document.getElementById("dashboard-link").addEventListener("click", () => {
   window.location.href = "admin_dashboard.html";
 });

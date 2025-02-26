@@ -39,12 +39,12 @@ async function loadUsers() {
       card.classList.add("card");
 
       // Determine new role for promote/demote button
-      const newRole = user.role === "student" ? "instructor" : "student";
+      const newRole = user.role === "patient" ? "doctor" : "patient";
       const buttonText =
-        user.role === "student" ? "Promote to Instructor" : "Demote to Student";
+        user.role === "patient" ? "Promote to Doctor" : "Demote to patient";
 
       card.innerHTML = `
-        <strong>${user.username}</strong> <br>
+        <strong>${user.name}</strong> <br>
         <small>${user.email}</small> <br>
         <small>Role: <span id="role-${user._id}">${user.role}</span></small> <br>
         <button class="btn-promote" onclick="updateUserRole('${user._id}', '${newRole}')">${buttonText}</button>
