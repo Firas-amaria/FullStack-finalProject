@@ -7,19 +7,28 @@
     <title>Dashboard | LMS</title>
     <link rel="stylesheet" href="css/styles.css">
     <style>
-        #logout-btn {
-            background-color: #dc3545;
+        #logout-btn,
+        #create-appointment-btn {
+            background-color: #0dad4a;
             color: white;
             border: none;
-            padding: 8px 15px;
+            padding: 10px 15px;
             font-size: 16px;
             cursor: pointer;
             border-radius: 5px;
             transition: 0.3s;
         }
 
+        #logout-btn {
+            background-color: #dc3545;
+        }
+
         #logout-btn:hover {
             background-color: #c82333;
+        }
+
+        #create-appointment-btn:hover {
+            background-color: #0b8c3c;
         }
 
         .container {
@@ -70,8 +79,7 @@
             background-color: #c82333;
         }
 
-        #admin-section,
-        #student-section {
+        #admin-section {
             display: none;
         }
     </style>
@@ -89,6 +97,8 @@
         <div id="admin-section">
             <h2>All Users</h2>
             <div id="user-list" class="grid-container"></div>
+
+            <button id="create-appointment-btn">Create Appointment</button>
         </div>
 
 

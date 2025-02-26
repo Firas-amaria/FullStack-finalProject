@@ -150,10 +150,14 @@ function logout() {
   localStorage.removeItem("role");
   window.location.href = "login.html"; // Redirect to homepage
 }
-
+function createAppointment() {
+  window.location.href = "admin_appointment.html";
+}
 // Attach logout function to the button
 document.getElementById("logout-btn").addEventListener("click", logout);
-
+document
+  .getElementById("create-appointment-btn")
+  .addEventListener("click", createAppointment);
 // Load admin name and users when the page loads
 document.addEventListener("DOMContentLoaded", () => {
   loadAdminName();
