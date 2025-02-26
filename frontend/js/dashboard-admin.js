@@ -145,8 +145,10 @@ async function loadAdminName() {
 
 // Logout function
 function logout() {
-  localStorage.removeItem("token"); // Remove token
-  window.location.href = "login.html"; // Redirect to login page
+  localStorage.removeItem("token");
+  localStorage.removeItem("username");
+  localStorage.removeItem("role");
+  window.location.href = "login.html"; // Redirect to homepage
 }
 
 // Attach logout function to the button
