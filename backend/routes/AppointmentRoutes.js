@@ -1,28 +1,38 @@
 const express = require("express");
 const router = express.Router();
 const Appointment = require("../models/Appointment");
-const { authenticateUser } = require("../middleware/authMiddleware");
+const { authenticateUser } = require("../middleware/AuthMiddleware");
 
 /**
- * Schedule an appointment
+ * Create an appointment (Admin can create for patients)
  */
-router.post("/schedule", authenticateUser, async (req, res) => {
+router.post("/", authenticateUser, async (req, res) => {
   try {
-    const { doctorName, specialty, appointmentDate } = req.body;
+    const { userId, doctorName, specialty, appointmentDate } = req.body;
+    console.log(
+      `Appointments: ${userId}, ${doctorName}, ${specialty}, ${appointmentDate}`
+    );
+    // Validate required fields
+    if (!userId || !doctorName || !specialty || !appointmentDate) {
+      return res.status(400).json({ message: "All fields are required." });
+    }
+
+    // Create the appointment
     const appointment = await Appointment.create({
-      userId: req.user.id,
+      userId, // Admin provides the userId
       doctorName,
       specialty,
       appointmentDate,
     });
-    res.json(appointment);
+
+    res.status(201).json(appointment);
   } catch (error) {
     res.status(500).json({ message: error.message });
   }
 });
 
 /**
- * Get all appointments for a user
+ * Get all appointments for the logged-in user
  */
 router.get("/", authenticateUser, async (req, res) => {
   try {
@@ -45,10 +55,12 @@ router.put("/cancel/:id", authenticateUser, async (req, res) => {
       { status: "canceled" },
       { new: true }
     );
+
     if (!appointment) {
       return res.status(404).json({ message: "Appointment not found" });
     }
-    res.json(appointment);
+
+    res.json({ message: "Appointment canceled successfully.", appointment });
   } catch (error) {
     res.status(500).json({ message: error.message });
   }

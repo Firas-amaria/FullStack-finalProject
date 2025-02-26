@@ -4,7 +4,7 @@ const mongoose = require("mongoose");
 const {
   authenticateUser,
   authorizeRoles,
-} = require("../middleware/authMiddleware");
+} = require("../middleware/AuthMiddleware");
 
 const router = express.Router();
 
@@ -63,7 +63,7 @@ router.patch(
       const { role } = req.body;
 
       // Validate role
-      if (!["user", "doctor"].includes(role)) {
+      if (!["patient", "doctor"].includes(role)) {
         return res.status(400).json({ error: "Invalid role provided" });
       }
 
