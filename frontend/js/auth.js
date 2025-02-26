@@ -1,17 +1,18 @@
 const API_URL = "http://localhost:3000";
 
-// ✅ Function to register a user
+//  Function to register a user
 async function registerUser(event) {
   event.preventDefault(); // Prevent page reload
 
-  const username = document.getElementById("username").value;
+  const name = document.getElementById("username").value; // Change from 'name' to 'username'
   const email = document.getElementById("email").value;
   const password = document.getElementById("password").value;
+  console.log(name, email, password);
 
   const response = await fetch(`${API_URL}/auth/register`, {
     method: "POST",
     headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({ username, email, password }),
+    body: JSON.stringify({ name, email, password }), // Change 'name' to 'username'
   });
 
   if (response.ok) {
@@ -31,6 +32,8 @@ async function loginUser(event) {
   const email = document.getElementById("email").value;
   const password = document.getElementById("password").value;
 
+  console.log(email, password);
+
   const response = await fetch(`${API_URL}/auth/login`, {
     method: "POST",
     headers: { "Content-Type": "application/json" },
@@ -40,19 +43,19 @@ async function loginUser(event) {
   if (response.ok) {
     const data = await response.json();
 
+    console.log("login successful", data);
+
     // ✅ Store user info in localStorage
     localStorage.setItem("token", data.token);
-    localStorage.setItem("username", data.user.username);
+    localStorage.setItem("username", data.user.name);
     localStorage.setItem("role", data.user.role);
-    localStorage.setItem("userID", data.user.userid);
+    localStorage.setItem("userID", data.user._id);
 
-    alert(`✅ Welcome, ${data.user.username}!`);
+    alert(`✅ Welcome, ${data.user.name}!`);
 
     // Redirect based on role
     if (data.user.role === "admin") {
       window.location.href = "dashboard-admin.html";
-    } else if (data.user.role === "instructor") {
-      window.location.href = "dashboard-instructor.html"; // Redirect to instructor dashboard
     } else {
       window.location.href = "student-dashboard.html"; // Redirect to courses page for regular users
     }
@@ -69,14 +72,6 @@ function checkAuth() {
   if (!token) {
     window.location.href = "login.html"; // Redirect to login if not logged in
   }
-}
-
-// ✅ Function to log out
-function logout() {
-  localStorage.removeItem("token");
-  localStorage.removeItem("username");
-  localStorage.removeItem("role");
-  window.location.href = "index.html"; // Redirect to homepage
 }
 
 // ✅ Event Listeners
