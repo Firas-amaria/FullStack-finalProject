@@ -62,6 +62,9 @@ function displayAppointments(appointments, doctorName) {
                 <button class="cancel-btn" onclick="cancelAppointment('${
                   appointment._id
                 }')">Cancel</button>
+                <button class="delete-btn" onclick="deleteAppointment('${
+                  appointment._id
+                }')">Delete</button>
             </div>
         `;
 
@@ -77,7 +80,7 @@ async function markAsCompleted(appointmentId) {
     const token = localStorage.getItem("token");
 
     const response = await fetch(
-      `${API_URL}/appointments/${appointmentId}/complete`,
+      `${API_URL}/doctor/appointment/${appointmentId}/complete`,
       {
         method: "PUT",
         headers: { Authorization: `Bearer ${token}` },
@@ -102,7 +105,7 @@ async function cancelAppointment(appointmentId) {
     const token = localStorage.getItem("token");
 
     const response = await fetch(
-      `${API_URL}/appointments/${appointmentId}/cancel`,
+      `${API_URL}/doctor/appointment/${appointmentId}/cancel`,
       {
         method: "PUT",
         headers: { Authorization: `Bearer ${token}` },
@@ -116,6 +119,38 @@ async function cancelAppointment(appointmentId) {
   } catch (error) {
     console.error("Error canceling appointment:", error);
     alert("Failed to cancel appointment.");
+  }
+}
+
+/**
+ * Delete an appointment (Doctor Only)
+ */
+async function deleteAppointment(appointmentId) {
+  if (
+    !confirm(
+      "Are you sure you want to delete this appointment? This action cannot be undone."
+    )
+  )
+    return;
+
+  try {
+    const token = localStorage.getItem("token");
+
+    const response = await fetch(
+      `${API_URL}/doctor/appointment/${appointmentId}`,
+      {
+        method: "DELETE",
+        headers: { Authorization: `Bearer ${token}` },
+      }
+    );
+
+    if (!response.ok) throw new Error("Failed to delete appointment");
+
+    alert("Appointment deleted successfully.");
+    loadAppointments(); // Refresh appointment list
+  } catch (error) {
+    console.error("Error deleting appointment:", error);
+    alert("Failed to delete appointment. Please try again.");
   }
 }
 

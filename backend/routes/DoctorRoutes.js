@@ -41,7 +41,6 @@ router.put("/appointment/:id/complete", authenticateUser, async (req, res) => {
       { status: "completed" },
       { new: true }
     );
-
     if (!appointment) {
       return res.status(404).json({ message: "Appointment not found" });
     }
@@ -64,6 +63,24 @@ router.put("/appointment/:id/cancel", authenticateUser, async (req, res) => {
     );
 
     res.json({ message: "Appointment canceled.", appointment });
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+});
+
+// Function to delete an appointment
+/**
+ * Delete an appointment (Doctor Only)
+ */
+router.delete("/appointment/:id", authenticateUser, async (req, res) => {
+  try {
+    const appointment = await Appointment.findByIdAndDelete(req.params.id);
+
+    if (!appointment) {
+      return res.status(404).json({ message: "Appointment not found" });
+    }
+
+    res.json({ message: "Appointment deleted successfully." });
   } catch (error) {
     res.status(500).json({ message: error.message });
   }
