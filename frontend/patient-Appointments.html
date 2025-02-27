@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="he">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>הזמנת תור</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+
+<body>
+    <header>
+        <h1>הזמנת תור רפואי</h1>
+        <nav>
+            <ul>
+                <li><a href="profile.html">דף אישי</a></li>
+                <li><a href="appointments.html">הזמנת תור</a></li>
+                <li><a href="chat.html">צ'אט עם בוט רפואי</a></li>
+            </ul>
+        </nav>
+    </header>
+    <section class="appointment-form">
+        <h2>בחר תור</h2>
+        <form id="appointmentForm"> <label for="medicalField">תחום רפואי:</label> <select id="medicalField" required>
+                <option value="" disabled selected>בחר תחום רפואי</option>
+                <option value="רפואת ילדים">רפואת ילדים</option>
+                <option value="רפואת משפחה">רפואת משפחה</option>
+                <option value="אורתופדיה">אורתופדיה</option>
+                <option value="נוירולוגיה">נוירולוגיה</option>
+                <option value="רפואה דחופה">רפואה דחופה</option>
+            </select> <label for="appointmentDate">תאריך:</label> <input type="date" id="appointmentDate" required>
+            <label for="appointmentTime">שעה:</label> <input type="time" id="appointmentTime" required> <button
+                type="submit">הזמן תור</button> </form>
+        <div id="confirmationMessage" style="display:none;">
+            <h3>התור הוזמן בהצלחה!</h3>
+            <p>תחום רפואי: <span id="confirmMedicalField"></span></p>
+            <p>תאריך: <span id="confirmAppointmentDate"></span></p>
+            <p>שעה: <span id="confirmAppointmentTime"></span></p>
+        </div>
+    </section>
+    <footer>
+        <p>&copy; 2025 מערכת ניהול תורים רפואיים</p>
+    </footer>
+    <script src="appointments.js"></script>
+</body>
+
+</html>

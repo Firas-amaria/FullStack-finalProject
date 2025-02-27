@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="he">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>דף אישי</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <header>
+        <h1>ברוך הבא, <span id="username">שם המשתמש</span></h1>
+        <nav>
+            <ul>
+                <li><a href="profile.html">דף אישי</a></li>
+                <li><a href="appointments.html">הזמנת תור</a></li>
+                <li><a href="chat.html">צ'אט עם בוט רפואי</a></li>
+            </ul>
+        </nav>
+    </header>
+    <section>
+        <h2>הפרופיל שלי</h2>
+        <p><strong>שם:</strong> <span id="name">שם מלא</span></p>
+        <p><strong>אימייל:</strong> <span id="email">אימייל</span></p>
+        <p><strong>תאריך הרשמה:</strong> <span id="registrationDate">תאריך</span></p>
+        <h3>ההזמנות שלי:</h3>
+        <ul id="appointmentsList">
+            <!-- רשימת תורים תיטען כאן באופן דינמי -->
+        </ul>
+    </section>
+    <footer>
+        <p>&copy; 2025 מערכת ניהול תורים רפואיים</p>
+    </footer>
+    <script src="script.js"></script>
+</body>
+</html>
