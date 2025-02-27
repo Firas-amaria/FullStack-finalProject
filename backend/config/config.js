@@ -8,7 +8,7 @@ dotenv.config();
 /**
  * Validate required environment variables
  */
-const requiredEnvVars = ['MONGO_URI', 'JWT_SECRET', 'OPENAI_API_KEY'];
+const requiredEnvVars = ['MONGO_URI', 'JWT_SECRET', 'DEEPSEEK_API_KEY'];
 
 requiredEnvVars.forEach((envVar) => {
     if (!process.env[envVar]) {
