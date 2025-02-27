@@ -2,7 +2,7 @@ const express = require("express");
 const router = express.Router();
 const ChatLog = require("../models/ChatLog");
 const axios = require("axios");
-const { authenticateUser } = require("../middleware/authMiddleware");
+const { authenticateUser } = require("../middleware/AuthMiddleware");
 
 /**
  * Send message to chatbot and get response

@@ -31,11 +31,11 @@ app.listen(PORT, () => {
 const UserRoutes = require("./routes/UserRoutes");
 app.use("/auth", UserRoutes);
 
-const { authenticateUser } = require("./middleware/AuthMiddleware");
+// const { authenticateUser } = require("./middleware/AuthMiddleware");
 
-app.get("/protected", authenticateUser, (req, res) => {
-  res.json({ message: "Protected route accessed!", user: req.user });
-});
+// app.get("/protected", authenticateUser, (req, res) => {
+//   res.json({ message: "Protected route accessed!", user: req.user });
+// });
 
 const adminRoutes = require("./routes/adminRoutes");
 app.use("/admin", adminRoutes);
