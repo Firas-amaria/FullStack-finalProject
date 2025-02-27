@@ -57,8 +57,6 @@ router.post("/login", async (req, res) => {
       return res.status(400).json({ message: "Invalid credentials" });
     }
 
-    console.log("Logging in User:", user); // DEBUG PRINT
-
     // Fix: Ensure `name` is included in the token
     const token = jwt.sign(
       {
