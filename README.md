@@ -44,7 +44,7 @@ Create a `.env` file inside the `backend/` folder with the following:
 PORT=3000
 MONGO_URI=mongodb://localhost:27017/medical_appointment_system
 JWT_SECRET=your-secret-key
-OPENAI_API_KEY=your-openai-key
+DEEPSEEK_API_KEY=your-openai-key
 ```
 
 ### 4️⃣ **Start the Server**
