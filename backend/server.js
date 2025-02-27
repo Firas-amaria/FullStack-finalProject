@@ -7,6 +7,15 @@ const app = express();
 
 app.use(express.json());
 app.use(cors());
+const path = require("path");
+
+// Serve static files from the frontend folder
+app.use(express.static(path.join(__dirname, "../frontend")));
+
+// Redirect root URL to index.html
+app.get("/", (req, res) => {
+  res.sendFile(path.join(__dirname, "../frontend/index.html"));
+});
 
 // console.log(process.env.PORT);
 // console.log(process.env.MONGO_URI);
