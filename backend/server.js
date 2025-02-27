@@ -5,11 +5,8 @@ const cors = require("cors");
 
 const app = express();
 
-// Middleware
 app.use(express.json());
 app.use(cors());
-
-// console.log("testing");
 
 // console.log(process.env.PORT);
 // console.log(process.env.MONGO_URI);
@@ -31,32 +28,17 @@ app.listen(PORT, () => {
   console.log(`🚀 Server running on http://localhost:${PORT}`);
 });
 
-// const authRoutes = require("./routes/authRoutes");
-// app.use("/auth", authRoutes);
+const UserRoutes = require("./routes/UserRoutes");
+app.use("/auth", UserRoutes);
 
-const { authenticateUser } = require("./middleware/authMiddleware");
+// const { authenticateUser } = require("./middleware/AuthMiddleware");
 
-app.get("/protected", authenticateUser, (req, res) => {
-  res.json({ message: "Protected route accessed!", user: req.user });
-});
+// app.get("/protected", authenticateUser, (req, res) => {
+//   res.json({ message: "Protected route accessed!", user: req.user });
+// });
 
-// const courseRoutes = require("./routes/courseRoutes");
-// app.use("/courses", courseRoutes);
+const adminRoutes = require("./routes/adminRoutes");
+app.use("/admin", adminRoutes);
 
-// const enrollmentRoutes = require("./routes/enrollmentRoutes");
-// app.use("/enrollments", enrollmentRoutes);
-
-// const quizRoutes = require("./routes/quizRoutes");
-// app.use("/quizzes", quizRoutes);
-
-// const submissionRoutes = require("./routes/submissionRoutes");
-// app.use("/submissions", submissionRoutes);
-
-// const adminRoutes = require("./routes/adminRoutes");
-// app.use("/admin", adminRoutes);
-
-// const instructorRoutes = require("./routes/instructorRoutes");
-// app.use("/instructor", instructorRoutes);
-
-// const userRoutes = require("./routes/userRoutes");
-// app.use("/users", userRoutes);
+const AppointmentRoutes = require("./routes/AppointmentRoutes");
+app.use("/appointment", AppointmentRoutes);

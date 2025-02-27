@@ -39,12 +39,12 @@ async function loadUsers() {
       card.classList.add("card");
 
       // Determine new role for promote/demote button
-      const newRole = user.role === "student" ? "instructor" : "student";
+      const newRole = user.role === "patient" ? "doctor" : "patient";
       const buttonText =
-        user.role === "student" ? "Promote to Instructor" : "Demote to Student";
+        user.role === "patient" ? "Promote to Doctor" : "Demote to patient";
 
       card.innerHTML = `
-        <strong>${user.username}</strong> <br>
+        <strong>${user.name}</strong> <br>
         <small>${user.email}</small> <br>
         <small>Role: <span id="role-${user._id}">${user.role}</span></small> <br>
         <button class="btn-promote" onclick="updateUserRole('${user._id}', '${newRole}')">${buttonText}</button>
@@ -91,11 +91,11 @@ async function updateUserRole(userId, newRole) {
       `button[onclick="updateUserRole('${userId}', '${newRole}')"]`
     );
     button.textContent =
-      newRole === "student" ? "Promote to Instructor" : "Demote to Student";
+      newRole === "patient" ? "Promote to Doctor" : "Demote to patient";
     button.setAttribute(
       "onclick",
       `updateUserRole('${userId}', '${
-        newRole === "student" ? "instructor" : "student"
+        newRole === "patient" ? "doctor" : "patient"
       }')`
     );
 
@@ -131,60 +131,6 @@ async function deleteUser(userId, button) {
   }
 }
 
-// Function to fetch and display courses
-async function loadCourses() {
-  try {
-    const token = localStorage.getItem("token");
-
-    if (!token) {
-      alert("Unauthorized! Please log in again.");
-      window.location.href = "login.html"; // Redirect to login page
-      return;
-    }
-
-    // Fetch courses from API
-    const response = await fetch(`${API_URL}/admin/courses`, {
-      headers: { Authorization: `Bearer ${token}` },
-    });
-
-    if (!response.ok) throw new Error("Failed to fetch courses");
-
-    const courses = await response.json();
-
-    // Select the course list container
-    const courseList = document.getElementById("course-list");
-    courseList.innerHTML = "";
-
-    // If no courses found
-    if (courses.length === 0) {
-      courseList.innerHTML = `<p>No courses found.</p>`;
-      return;
-    }
-
-    // Loop through and create course cards
-    courses.forEach((course) => {
-      const card = document.createElement("div");
-      card.classList.add("card");
-
-      card.innerHTML = `
-        <strong>${course.title}</strong> <br>
-        <small>${course.description}</small> <br>
-        <small>Instructor: ${
-          course.instructorId ? course.instructorId.username : "Unknown"
-        }</small>
-      `;
-
-      courseList.appendChild(card);
-    });
-
-    // Show the courses section after loading
-    document.getElementById("course-section").style.display = "block";
-  } catch (error) {
-    console.error("Error loading courses:", error);
-    alert("Failed to load courses. Please try again later.");
-  }
-}
-
 // Load users and courses on page load
 
 async function loadAdminName() {
@@ -199,16 +145,21 @@ async function loadAdminName() {
 
 // Logout function
 function logout() {
-  localStorage.removeItem("token"); // Remove token
-  window.location.href = "login.html"; // Redirect to login page
+  localStorage.removeItem("token");
+  localStorage.removeItem("username");
+  localStorage.removeItem("role");
+  window.location.href = "login.html"; // Redirect to homepage
 }
-
+function createAppointment() {
+  window.location.href = "admin_appointment.html";
+}
 // Attach logout function to the button
 document.getElementById("logout-btn").addEventListener("click", logout);
-
+document
+  .getElementById("create-appointment-btn")
+  .addEventListener("click", createAppointment);
 // Load admin name and users when the page loads
 document.addEventListener("DOMContentLoaded", () => {
   loadAdminName();
   loadUsers();
-  loadCourses();
 });

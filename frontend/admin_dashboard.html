@@ -7,35 +7,28 @@
     <title>Dashboard | LMS</title>
     <link rel="stylesheet" href="css/styles.css">
     <style>
-        header {
-            width: 100%;
-            background-color: #6a0dad;
-            color: white;
-            padding: 15px;
-            font-size: 22px;
-            font-weight: bold;
-            position: fixed;
-            top: 0;
-            left: 0;
-            text-align: left;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        #logout-btn {
-            background-color: #dc3545;
+        #logout-btn,
+        #create-appointment-btn {
+            background-color: #0dad4a;
             color: white;
             border: none;
-            padding: 8px 15px;
+            padding: 10px 15px;
             font-size: 16px;
             cursor: pointer;
             border-radius: 5px;
             transition: 0.3s;
         }
 
+        #logout-btn {
+            background-color: #dc3545;
+        }
+
         #logout-btn:hover {
             background-color: #c82333;
+        }
+
+        #create-appointment-btn:hover {
+            background-color: #0b8c3c;
         }
 
         .container {
@@ -45,7 +38,7 @@
 
         h2 {
             margin-top: 20px;
-            border-bottom: 2px solid #6a0dad;
+            border-bottom: 2px solid #0dad4a;
             padding-bottom: 5px;
             text-align: left;
         }
@@ -63,7 +56,7 @@
             border-radius: 12px;
             box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
             text-align: left;
-            border-left: 6px solid #6a0dad;
+            border-left: 6px solid #0dad55;
             transition: transform 0.2s ease-in-out;
         }
 
@@ -86,8 +79,7 @@
             background-color: #c82333;
         }
 
-        #admin-section,
-        #student-section {
+        #admin-section {
             display: none;
         }
     </style>
@@ -105,18 +97,14 @@
         <div id="admin-section">
             <h2>All Users</h2>
             <div id="user-list" class="grid-container"></div>
-        </div>
 
-        <div id="course-section" style="display: none;">
-            <h2>All Courses</h2>
-            <div id="course-list" class="grid-container"></div>
+            <button id="create-appointment-btn">Create Appointment</button>
         </div>
-
 
 
     </div>
 
-    <script src="js/dashboard-admin.js"></script>
+    <script src="js/admin_controller.js"></script>
 </body>
 
 </html>
