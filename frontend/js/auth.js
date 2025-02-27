@@ -59,7 +59,7 @@ async function loginUser(event) {
     } else if (data.user.role === "doctor") {
       window.location.href = "doctor_dashboard.html";
     } else {
-      window.location.href = "student-dashboard.html"; // Redirect to courses page for regular users
+      window.location.href = "patient-dashboard.html"; // Redirect to courses page for regular users
     }
   } else {
     const errorData = await response.json();
