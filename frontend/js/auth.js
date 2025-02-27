@@ -56,6 +56,8 @@ async function loginUser(event) {
     // Redirect based on role
     if (data.user.role === "admin") {
       window.location.href = "admin_dashboard.html";
+    } else if (data.user.role === "doctor") {
+      window.location.href = "doctor_dashboard.html";
     } else {
       window.location.href = "student-dashboard.html"; // Redirect to courses page for regular users
     }
