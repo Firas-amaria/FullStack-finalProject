@@ -108,10 +108,11 @@ medical-appointment-system/
 │   │   │   ─ UserRoutes.js
 │   │   │   ─ AppointmentRoutes.js
 │   │   │   ─ ChatbotRoutes.js
-│   │   │
-│   │   ─ server.js            # Express app & server setup
-│
-│─ .env                         # Environment variables
+│   │   │   ─ DoctorRoutes.js
+│   │   │   ─ adminRoutes.js
+│   │   │─ .env 
+│   │   ─ app.js            # Express app & server setup
+│                        # Environment variables
 │─ package.json                 # NPM dependencies
 │─ README.md                    # Project documentation
 ```
