@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Patient Dashboard</title>
+    <title>My Appointments</title>
     <link rel="stylesheet" href="css/styles.css">
     <style>
         .container {
@@ -29,7 +29,7 @@
         }
 
         button {
-            background-color: #0dad4a;
+            background-color: #007bff;
             color: white;
             padding: 10px;
             font-size: 16px;
@@ -40,27 +40,27 @@
         }
 
         button:hover {
-            background-color: #0b8c3c;
+            background-color: #0056b3;
         }
     </style>
 </head>
 
 <body>
     <header>
-        <span>Patient Dashboard</span>
+        <span>My Appointments</span>
         <button id="logout-btn">Logout</button>
     </header>
 
     <div class="container">
-        <h2>Upcoming Appointments</h2>
+        <h2>All Appointments</h2>
         <div id="appointments-list">
             <p>Loading appointments...</p>
         </div>
 
-        <button onclick="window.location.href='patient_appointments.html'">View All Appointments</button>
+        <button onclick="window.location.href='patient_dashboard.html'">Back to Dashboard</button>
     </div>
 
-    <script src="js/patient_dashboard.js"></script>
+    <script src="js/patient_appointments.js"></script>
 </body>
 
 </html>
