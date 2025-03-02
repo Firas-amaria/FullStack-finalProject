@@ -70,11 +70,29 @@ router.post("/login", async (req, res) => {
 
     res.json({
       token,
-      user: { id: user._id, name: user.name, role: user.role },
+      user: { _id: user._id, name: user.name, role: user.role },
     });
   } catch (error) {
     console.error("Login Error:", error);
     res.status(500).json({ message: "Server error" });
+  }
+});
+
+/**
+ * Get list of all doctors (Public)
+ */
+router.get("/doctors", authenticateUser, async (req, res) => {
+  try {
+    const doctors = await User.find({ role: "doctor" }).select("name email");
+
+    if (doctors.length === 0) {
+      return res.status(404).json({ message: "No doctors found" });
+    }
+
+    res.json(doctors);
+  } catch (error) {
+    console.error("Error fetching doctors:", error);
+    res.status(500).json({ message: error.message });
   }
 });
 

@@ -43,14 +43,16 @@ Create a `.env` file inside the `backend/` folder with the following:
 ```
 PORT=3000
 MONGO_URI=mongodb://localhost:27017/medical_appointment_system
-JWT_SECRET=your-secret-key
-DEEPSEEK_API_KEY=your-openai-key
+JWT_SECRET=<your-secret-key>
+DEEPSEEK_API_KEY=<your-openai-key>
 ```
+
+note: the key for the api is needed for the chat ai to work properly
 
 ### 4️⃣ **Start the Server**
 
 ```bash
-FullStack-finalProject\backend> node app.js 
+FullStack-finalProject> npm run start
 
 ```
 
@@ -60,28 +62,28 @@ FullStack-finalProject\backend> node app.js
 
 ### 🿢 **User Authentication (`/api/users`)**
 
-| Method | Endpoint           | Description                | Authentication |
-| ------ | ------------------ | -------------------------- | -------------- |
+| Method | Endpoint          | Description                | Authentication |
+| ------ | ----------------- | -------------------------- | -------------- |
 | `POST` | `/users/register` | Register a new user        | ❌ No          |
-| `POST` | `/users/login`  | Login user & get JWT token | ❌ No          |
-| `GET`  | `/users/me`     | Get logged-in user profile | ✅ Yes         |
+| `POST` | `/users/login`    | Login user & get JWT token | ❌ No          |
+| `GET`  | `/users/me`       | Get logged-in user profile | ✅ Yes         |
 
 ---
 
 ### 🿢 **Appointments (`/api/appointments`)**
 
-| Method | Endpoint                    | Description                   | Authentication |
-| ------ | --------------------------- | ----------------------------- | -------------- |
-| `POST` | `/appointments/schedule` | Schedule a new appointment    | ✅ Yes         |
-| `GET`  | `/appointments`          | Get all appointments for user | ✅ Yes         |
+| Method | Endpoint                   | Description                   | Authentication |
+| ------ | -------------------------- | ----------------------------- | -------------- |
+| `POST` | `/appointments/schedule`   | Schedule a new appointment    | ✅ Yes         |
+| `GET`  | `/appointments`            | Get all appointments for user | ✅ Yes         |
 | `PUT`  | `/appointments/cancel/:id` | Cancel an appointment         | ✅ Yes         |
 
 ---
 
 ### 🿢 **Chatbot (`/api/chatbot`)**
 
-| Method | Endpoint             | Description                      | Authentication |
-| ------ | -------------------- | -------------------------------- | -------------- |
+| Method | Endpoint           | Description                      | Authentication |
+| ------ | ------------------ | -------------------------------- | -------------- |
 | `POST` | `/chatbot/send`    | Send a message to the AI chatbot | ✅ Yes         |
 | `GET`  | `/chatbot/history` | Get user's chat history          | ✅ Yes         |
 
@@ -110,7 +112,7 @@ medical-appointment-system/
 │   │   │   ─ ChatbotRoutes.js
 │   │   │   ─ DoctorRoutes.js
 │   │   │   ─ adminRoutes.js
-│   │   │─ .env 
+│   │   │─ .env
 │   │   ─ app.js            # Express app & server setup
 │                        # Environment variables
 │─ package.json                 # NPM dependencies

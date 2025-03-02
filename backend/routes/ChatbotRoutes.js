@@ -29,11 +29,11 @@ router.post("/send", authenticateUser, async (req, res) => {
 
     // **Check if the user is asking about their appointments**
     if (
-        userMessage.includes("התורים שלי") ||
-        userMessage.includes("מתי התור הבא")
+      userMessage.includes("התורים שלי") ||
+      userMessage.includes("מתי התור הבא")
     ) {
       const appointments = await Appointment.find({ userId: req.user.id }).sort(
-          { appointmentDate: 1 }
+        { appointmentDate: 1 }
       );
 
       // If no appointments are found, notify the user
@@ -42,38 +42,38 @@ router.post("/send", authenticateUser, async (req, res) => {
       } else {
         // Format the appointment details
         botMessage =
-            "🔹 אלו התורים שלך:\n" +
-            appointments
-                .map(
-                    (appt) =>
-                        `📅 ${appt.appointmentDate.toISOString().split("T")[0]} - ${
-                            appt.doctorName
-                        } (${appt.specialty})`
-                )
-                .join("\n");
+          "🔹 אלו התורים שלך:\n" +
+          appointments
+            .map(
+              (appt) =>
+                `📅 ${appt.appointmentDate.toISOString().split("T")[0]} - ${
+                  appt.doctorName
+                } (${appt.details})`
+            )
+            .join("\n");
       }
     }
     // **If no relevant data is found, send the query to DeepSeek AI**
     else {
       const response = await axios.post(
-          "https://api.deepseek.com/v1/chat/completions",
-          {
-            model: "deepseek-chat",
-            messages: [
-              {
-                role: "system",
-                content:
-                    "You are a medical chatbot assisting users with appointment inquiries, symptoms, and general health questions. Provide very short, supportive responses (maximum 2 sentences) in Hebrew only. If unsure, respond with 'I am not sure, please consult a doctor for professional advice.'",
-              },
-              { role: "user", content: userMessage }, // User's message
-            ],
-          },
-          {
-            headers: {
-              "Content-Type": "application/json",
-              Authorization: `Bearer ${process.env.DEEPSEEK_API_KEY}`,
+        "https://api.deepseek.com/v1/chat/completions",
+        {
+          model: "deepseek-chat",
+          messages: [
+            {
+              role: "system",
+              content:
+                "You are a medical chatbot assisting users with appointment inquiries, symptoms, and general health questions. Provide very short, supportive responses (maximum 2 sentences) in Hebrew only. If unsure, respond with 'I am not sure, please consult a doctor for professional advice.'",
             },
-          }
+            { role: "user", content: userMessage }, // User's message
+          ],
+        },
+        {
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${process.env.DEEPSEEK_API_KEY}`,
+          },
+        }
       );
 
       // Clean the response to remove unnecessary characters
@@ -85,20 +85,22 @@ router.post("/send", authenticateUser, async (req, res) => {
 
     // **Save the chat conversation in the database**
     await ChatLog.findOneAndUpdate(
-        { userId: req.user.id },
-        {
-          $push: {
-            messages: { sender: "user", text: userMessage },
-            messages: { sender: "bot", text: botMessage },
-          },
+      { userId: req.user.id },
+      {
+        $push: {
+          messages: { sender: "user", text: userMessage },
+          messages: { sender: "bot", text: botMessage },
         },
-        { upsert: true, new: true } // Create a new document if one doesn't exist
+      },
+      { upsert: true, new: true } // Create a new document if one doesn't exist
     );
 
     res.json({ botMessage });
   } catch (error) {
     console.error("❌ Error in chatbot response:", error);
-    res.status(500).json({ message: "Internal server error. Please try again later." });
+    res
+      .status(500)
+      .json({ message: "Internal server error. Please try again later." });
   }
 });
 
@@ -109,10 +111,10 @@ router.post("/send", authenticateUser, async (req, res) => {
  */
 const cleanResponse = (response) => {
   return response
-      .replace(/###/g, "") // Remove ###
-      .replace(/- /g, "")  // Remove "-" at the beginning of a line
-      .replace(/\*\*/g, "") // Remove ** formatting
-      .trim(); // Trim unnecessary spaces
+    .replace(/###/g, "") // Remove ###
+    .replace(/- /g, "") // Remove "-" at the beginning of a line
+    .replace(/\*\*/g, "") // Remove ** formatting
+    .trim(); // Trim unnecessary spaces
 };
 
 /**

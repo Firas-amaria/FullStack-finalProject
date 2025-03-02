@@ -50,7 +50,7 @@ function displayAppointments(appointments, doctorName) {
             <p><strong>Patient:</strong> ${
               appointment.userId.name || "Unknown"
             }</p>
-            <p><strong>Specialty:</strong> ${appointment.specialty}</p>
+            <p><strong>details:</strong> ${appointment.details}</p>
             <p><strong>Date:</strong> ${new Date(
               appointment.appointmentDate
             ).toLocaleString()}</p>
