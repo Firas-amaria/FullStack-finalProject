@@ -7,6 +7,14 @@
     <title>Chat with Medical Bot</title>
     <link rel="stylesheet" href="css/styles.css">
     <style>
+        .container {
+            max-width: 80%;
+            margin: 50px auto;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+        }
+
         #logout-btn,
         #create-appointment-btn {
             background-color: #0dad4a;
@@ -46,10 +54,6 @@
             background-color: #0b8c3c;
         }
 
-        .container {
-            max-width: 80%;
-            padding: 30px;
-        }
 
         h2 {
             margin-top: 20px;
@@ -99,7 +103,7 @@
         }
 
         .chat-container {
-            width: 350px;
+            width: 100%;
             background-color: white;
             box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
             border-radius: 10px;
@@ -162,6 +166,21 @@
             background-color: #e0e0e0;
             align-self: flex-start;
         }
+
+        button {
+            background-color: #007bff;
+            color: white;
+            padding: 10px;
+            font-size: 16px;
+            border: none;
+            cursor: pointer;
+            margin-top: 15px;
+            border-radius: 5px;
+        }
+
+        button:hover {
+            background-color: #0056b3;
+        }
     </style>
 </head>
 
@@ -172,15 +191,19 @@
         <button id="logout-btn">Logout</button>
     </header>
 
-    <div class="chat-container">
-        <div class="chat-box" id="chat-box">
-            <!-- Messages will appear here -->
+    <div class="container">
+        <div class="chat-container">
+            <div class="chat-box" id="chat-box">
+                <!-- Messages will appear here -->
+            </div>
+            <div class="input-box">
+                <input type="text" id="user-input" placeholder="הקלד הודעה...">
+                <button onclick="sendMessage()">Send</button>
+            </div>
         </div>
-        <div class="input-box">
-            <input type="text" id="user-input" placeholder="הקלד הודעה...">
-            <button onclick="sendMessage()">Send</button>
-        </div>
+        <button onclick="window.location.href='patient_create_appointment.html'">Craete a new appointment</button>
     </div>
+
 
     <footer>
         <p>&copy; 2025 Medical Appointment Management System</p>

@@ -42,12 +42,12 @@ async function loadUsers() {
       const newRole = user.role === "patient" ? "doctor" : "patient";
       const buttonText =
         user.role === "patient" ? "Promote to Doctor" : "Demote to patient";
-
+      const buttonType = user.role === "patient" ? "btn-promote" : "btn-demote";
       card.innerHTML = `
         <strong>${user.name}</strong> <br>
         <small>${user.email}</small> <br>
         <small>Role: <span id="role-${user._id}">${user.role}</span></small> <br>
-        <button class="btn-promote" onclick="updateUserRole('${user._id}', '${newRole}')">${buttonText}</button>
+        <button class="${buttonType}" onclick="updateUserRole('${user._id}', '${newRole}')">${buttonText}</button>
         <button class="btn-delete" onclick="deleteUser('${user._id}', this)">Delete</button>
       `;
 
