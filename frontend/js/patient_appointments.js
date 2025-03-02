@@ -1,44 +1,80 @@
+const API_URL = "http://localhost:3000"; // Update if needed
+
 document.addEventListener("DOMContentLoaded", () => {
   loadAllAppointments();
   setupLogout();
 });
 
-const mockAppointments = [
-  {
-    doctorName: "Dr. Smith",
-    specialty: "Cardiology",
-    date: "2025-03-01 10:00 AM",
-  },
-  {
-    doctorName: "Dr. Brown",
-    specialty: "Neurology",
-    date: "2025-03-05 2:00 PM",
-  },
-  {
-    doctorName: "Dr. Johnson",
-    specialty: "Dermatology",
-    date: "2025-03-10 9:30 AM",
-  },
-  {
-    doctorName: "Dr. Wilson",
-    specialty: "Pediatrics",
-    date: "2025-03-15 1:00 PM",
-  },
-];
-// Static data for testing (same as in `patient_dashboard.js`)
-function loadAllAppointments() {
+// Function to fetch and display all appointments
+async function loadAllAppointments() {
+  const token = localStorage.getItem("token");
+
+  try {
+    const response = await fetch(`${API_URL}/appointments`, {
+      headers: { Authorization: `Bearer ${token}` },
+    });
+
+    if (!response.ok) throw new Error("Failed to fetch appointments");
+
+    const appointments = await response.json();
+    console.log("Fetched Appointments:", appointments); // Debugging print
+
+    displayAllAppointments(appointments);
+  } catch (error) {
+    console.error("Error loading appointments:", error);
+    document.getElementById(
+      "appointments-list"
+    ).innerHTML = `<p>Error loading appointments.</p>`;
+  }
+}
+
+async function cancelAppointment(appointmentId) {
+  if (!confirm("Are you sure you want to cancel this appointment?")) return;
+
+  try {
+    const token = localStorage.getItem("token");
+
+    const response = await fetch(`${API_URL}/appointments/${appointmentId}`, {
+      method: "DELETE",
+      headers: { Authorization: `Bearer ${token}` },
+    });
+
+    if (!response.ok) throw new Error("Failed to cancel appointment");
+
+    alert("Appointment canceled successfully.");
+    loadAllAppointments(); // Refresh list after deletion
+  } catch (error) {
+    console.error("Error canceling appointment:", error);
+    alert("Failed to cancel appointment. Please try again.");
+  }
+}
+
+// Function to display all appointments
+// Function to display all appointments with a "Cancel" button
+function displayAllAppointments(appointments) {
   const appointmentsList = document.getElementById("appointments-list");
   appointmentsList.innerHTML = "";
 
-  mockAppointments.forEach((appointment) => {
+  if (appointments.length === 0) {
+    appointmentsList.innerHTML = `<p>No appointments found.</p>`;
+    return;
+  }
+
+  appointments.forEach((appointment) => {
     const card = document.createElement("div");
     card.classList.add("appointment-card");
 
     card.innerHTML = `
-            <p><strong>Doctor:</strong> ${appointment.doctorName}</p>
-            <p><strong>Specialty:</strong> ${appointment.specialty}</p>
-            <p><strong>Date:</strong> ${appointment.date}</p>
-        `;
+          <p><strong>Doctor:</strong> ${appointment.doctorName}</p>
+          <p><strong>details:</strong> ${appointment.details}</p>
+          <p><strong>Date:</strong> ${new Date(
+            appointment.appointmentDate
+          ).toLocaleString()}</p>
+          <p><strong>Status:</strong> ${appointment.status}</p>
+          <button class="cancel-btn" onclick="cancelAppointment('${
+            appointment._id
+          }')">Cancel</button>
+      `;
 
     appointmentsList.appendChild(card);
   });

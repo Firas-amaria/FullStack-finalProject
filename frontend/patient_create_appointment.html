@@ -4,11 +4,11 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Create Appointment | Admin</title>
+    <title>Create New Appointment</title>
     <link rel="stylesheet" href="css/styles.css">
     <style>
         .container {
-            max-width: 500px;
+            max-width: 800px;
             margin: 50px auto;
             padding: 20px;
             border-radius: 10px;
@@ -16,26 +16,26 @@
         }
 
         label {
-            font-weight: bold;
             display: block;
-            margin-top: 10px;
+            margin: 10px 0 5px;
+            font-weight: bold;
         }
 
-        input,
-        select {
+        select,
+        input {
             width: 100%;
             padding: 8px;
-            margin-top: 5px;
-            border: 1px solid #ccc;
+            margin-bottom: 10px;
             border-radius: 5px;
+            border: 1px solid #ccc;
         }
 
         button {
-            background-color: #0dad4a;
+            background-color: #007bff;
             color: white;
-            border: none;
             padding: 10px;
             font-size: 16px;
+            border: none;
             cursor: pointer;
             margin-top: 15px;
             border-radius: 5px;
@@ -44,30 +44,34 @@
         button:hover {
             background-color: #0b8c3c;
         }
+
+        .cancel-btn {
+            background-color: #dc3545;
+        }
+
+        .cancel-btn:hover {
+            background-color: #c82333;
+        }
     </style>
 </head>
 
 <body>
     <header>
-        <span id="dashboard-link" style="cursor: pointer; text-decoration: underline;">Dashboard</span>
+        <span>Create New Appointment</span>
         <button id="logout-btn">Logout</button>
     </header>
 
     <div class="container">
-        <h2>Create New Appointment</h2>
-
-        <label for="patient-select">Select Patient:</label>
-        <select id="patient-select">
-            <option value="">Loading patients...</option>
-        </select>
+        <h2>Book an Appointment</h2>
 
         <label for="doctor-select">Select Doctor:</label>
         <select id="doctor-select">
             <option value="">Loading doctors...</option>
         </select>
 
-        <label for="details">details:</label>
-        <input type="text" id="details" placeholder="Enter details">
+        <label for="appointment-details">Appointment Details:</label>
+        <input type="text" id="appointment-details" placeholder="Enter details (e.g., reason for visit)">
+
 
         <label for="appointment-date">Select Date:</label>
         <input type="date" id="appointment-date">
@@ -76,11 +80,12 @@
         <input type="time" id="appointment-time">
 
         <button id="submit-appointment">Create Appointment</button>
+        <button class="cancel-btn" onclick="window.location.href='patient_appointments.html'">Cancel</button>
+
         <p id="message" style="color: green;"></p>
     </div>
 
-    <script src="js/admin_appointment.js"></script>
-
+    <script src="js/patient_create_appointment.js"></script>
 </body>
 
 </html>

@@ -64,38 +64,38 @@ function setupCreateAppointment() {
   document
     .getElementById("submit-appointment")
     .addEventListener("click", async () => {
-      const patientName = document.getElementById("patient-select").value;
+      const userId = document.getElementById("patient-select").value;
       const doctorName = document.getElementById("doctor-select").value;
-      const specialty = document.getElementById("specialty").value;
+      const details = document.getElementById("details").value;
       const date = document.getElementById("appointment-date").value;
       const time = document.getElementById("appointment-time").value;
 
-      if (!patientName || !doctorName || !specialty || !date || !time) {
+      if (!userId || !doctorName || !details || !date || !time) {
         alert("Please fill out all fields.");
         return;
       }
 
       const appointmentDate = new Date(`${date}T${time}:00`);
       console.log("Final Appointment Data:", {
-        userId: patientName,
+        userId,
         doctorName,
-        specialty,
+        details,
         appointmentDate,
       }); // DEBUG PRINT
 
       try {
         const token = localStorage.getItem("token");
 
-        const response = await fetch(`${API_URL}/appointment`, {
+        const response = await fetch(`${API_URL}/appointments`, {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
             Authorization: `Bearer ${token}`,
           },
           body: JSON.stringify({
-            userId: patientName, // Using name instead of ID
+            userId, // Using name instead of ID
             doctorName, // Using doctor's name instead of ID
-            specialty,
+            details,
             appointmentDate,
           }),
         });

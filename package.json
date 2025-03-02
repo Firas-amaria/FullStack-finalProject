@@ -4,8 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "cd backend && node server.js --require dotenv/config",
-    "dev": "cd backend && nodemon server.js --require dotenv/config"
+    "start": "cd backend && node app.js --require dotenv/config",
+    "dev": "cd backend && nodemon app.js --require dotenv/config"
   },
   "keywords": [],
   "author": "",
