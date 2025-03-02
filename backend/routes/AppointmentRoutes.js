@@ -3,24 +3,20 @@ const router = express.Router();
 const Appointment = require("../models/Appointment");
 const { authenticateUser } = require("../middleware/AuthMiddleware");
 
-
 /**
  * Create an appointment (Admin can create for patients)
  */
 router.post("/", authenticateUser, async (req, res) => {
   try {
     const { userId, doctorName, specialty, appointmentDate } = req.body;
-    console.log(
-      `Appointments: ${userId}, ${doctorName}, ${specialty}, ${appointmentDate}`
-    );
-    // Validate required fields
+
     if (!userId || !doctorName || !specialty || !appointmentDate) {
+      console.log("Missing required fields"); // DEBUG PRINT
       return res.status(400).json({ message: "All fields are required." });
     }
 
-    // Create the appointment
     const appointment = await Appointment.create({
-      userId, // Admin provides the userId
+      userId,
       doctorName,
       specialty,
       appointmentDate,
@@ -28,6 +24,7 @@ router.post("/", authenticateUser, async (req, res) => {
 
     res.status(201).json(appointment);
   } catch (error) {
+    console.error("Error creating appointment:", error); // DEBUG PRINT
     res.status(500).json({ message: error.message });
   }
 });

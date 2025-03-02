@@ -1,6 +1,7 @@
 const API_URL = "http://localhost:3000"; // Add /api
 document.addEventListener("DOMContentLoaded", async () => {
   await loadPatients();
+  await loadDoctors();
   setupCreateAppointment();
 });
 
@@ -34,37 +35,66 @@ async function loadPatients() {
   }
 }
 
+async function loadDoctors() {
+  const token = localStorage.getItem("token");
+
+  try {
+    const response = await fetch(`${API_URL}/admin/users`, {
+      headers: { Authorization: `Bearer ${token}` },
+    });
+
+    if (!response.ok) throw new Error("Failed to fetch doctors");
+
+    const users = await response.json();
+    const doctors = users.filter((user) => user.role === "doctor");
+
+    const doctorSelect = document.getElementById("doctor-select");
+    doctorSelect.innerHTML = doctors.length
+      ? doctors
+          .map((user) => `<option value="${user.name}">${user.name}</option>`)
+          .join("")
+      : "<option value=''>No doctors available</option>";
+  } catch (error) {
+    console.error("Error loading doctors:", error);
+  }
+}
+
 // Function to handle appointment creation
 function setupCreateAppointment() {
   document
     .getElementById("submit-appointment")
     .addEventListener("click", async () => {
-      const patientId = document.getElementById("patient-select").value;
-      const doctorName = document.getElementById("doctor-name").value;
+      const patientName = document.getElementById("patient-select").value;
+      const doctorName = document.getElementById("doctor-select").value;
       const specialty = document.getElementById("specialty").value;
       const date = document.getElementById("appointment-date").value;
       const time = document.getElementById("appointment-time").value;
 
-      if (!patientId || !doctorName || !specialty || !date || !time) {
+      if (!patientName || !doctorName || !specialty || !date || !time) {
         alert("Please fill out all fields.");
         return;
       }
 
       const appointmentDate = new Date(`${date}T${time}:00`);
+      console.log("Final Appointment Data:", {
+        userId: patientName,
+        doctorName,
+        specialty,
+        appointmentDate,
+      }); // DEBUG PRINT
 
       try {
         const token = localStorage.getItem("token");
 
-        const response = await fetch(`${API_URL}/appointments`, {
-          // Update API URL
+        const response = await fetch(`${API_URL}/appointment`, {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
             Authorization: `Bearer ${token}`,
           },
           body: JSON.stringify({
-            userId: patientId,
-            doctorName,
+            userId: patientName, // Using name instead of ID
+            doctorName, // Using doctor's name instead of ID
             specialty,
             appointmentDate,
           }),

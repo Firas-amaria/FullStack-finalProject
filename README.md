@@ -50,7 +50,8 @@ DEEPSEEK_API_KEY=your-openai-key
 ### 4️⃣ **Start the Server**
 
 ```bash
-npm run start
+FullStack-finalProject\backend> node app.js 
+
 ```
 
 ---
@@ -59,30 +60,30 @@ npm run start
 
 ### 🿢 **User Authentication (`/api/users`)**
 
-| Method | Endpoint              | Description                | Authentication |
-| ------ | --------------------- | -------------------------- | -------------- |
-| `POST` | `/api/users/register` | Register a new user        | ❌ No          |
-| `POST` | `/api/users/login`    | Login user & get JWT token | ❌ No          |
-| `GET`  | `/api/users/me`       | Get logged-in user profile | ✅ Yes         |
+| Method | Endpoint           | Description                | Authentication |
+| ------ | ------------------ | -------------------------- | -------------- |
+| `POST` | `/users/register` | Register a new user        | ❌ No          |
+| `POST` | `/users/login`  | Login user & get JWT token | ❌ No          |
+| `GET`  | `/users/me`     | Get logged-in user profile | ✅ Yes         |
 
 ---
 
 ### 🿢 **Appointments (`/api/appointments`)**
 
-| Method | Endpoint                       | Description                   | Authentication |
-| ------ | ------------------------------ | ----------------------------- | -------------- |
-| `POST` | `/api/appointments/schedule`   | Schedule a new appointment    | ✅ Yes         |
-| `GET`  | `/api/appointments`            | Get all appointments for user | ✅ Yes         |
-| `PUT`  | `/api/appointments/cancel/:id` | Cancel an appointment         | ✅ Yes         |
+| Method | Endpoint                    | Description                   | Authentication |
+| ------ | --------------------------- | ----------------------------- | -------------- |
+| `POST` | `/appointments/schedule` | Schedule a new appointment    | ✅ Yes         |
+| `GET`  | `/appointments`          | Get all appointments for user | ✅ Yes         |
+| `PUT`  | `/appointments/cancel/:id` | Cancel an appointment         | ✅ Yes         |
 
 ---
 
 ### 🿢 **Chatbot (`/api/chatbot`)**
 
-| Method | Endpoint               | Description                      | Authentication |
-| ------ | ---------------------- | -------------------------------- | -------------- |
-| `POST` | `/api/chatbot/send`    | Send a message to the AI chatbot | ✅ Yes         |
-| `GET`  | `/api/chatbot/history` | Get user's chat history          | ✅ Yes         |
+| Method | Endpoint             | Description                      | Authentication |
+| ------ | -------------------- | -------------------------------- | -------------- |
+| `POST` | `/chatbot/send`    | Send a message to the AI chatbot | ✅ Yes         |
+| `GET`  | `/chatbot/history` | Get user's chat history          | ✅ Yes         |
 
 ---
 
@@ -107,10 +108,11 @@ medical-appointment-system/
 │   │   │   ─ UserRoutes.js
 │   │   │   ─ AppointmentRoutes.js
 │   │   │   ─ ChatbotRoutes.js
-│   │   │
-│   │   ─ server.js            # Express app & server setup
-│
-│─ .env                         # Environment variables
+│   │   │   ─ DoctorRoutes.js
+│   │   │   ─ adminRoutes.js
+│   │   │─ .env 
+│   │   ─ app.js            # Express app & server setup
+│                        # Environment variables
 │─ package.json                 # NPM dependencies
 │─ README.md                    # Project documentation
 ```
