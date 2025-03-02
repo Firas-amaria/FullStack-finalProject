@@ -22,12 +22,7 @@ async function loadPatients() {
     const patientSelect = document.getElementById("patient-select");
     patientSelect.innerHTML = patients.length
       ? patients
-          .map(
-            (user) =>
-              `<option value="${user._id}">${
-                user.name + "-" + user._id
-              }</option>`
-          )
+          .map((user) => `<option value="${user._id}">${user.name}</option>`)
           .join("")
       : "<option value=''>No patients available</option>";
   } catch (error) {

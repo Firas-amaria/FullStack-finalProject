@@ -20,6 +20,13 @@
             margin-bottom: 20px;
         }
 
+        .grid-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+            margin-top: 20px;
+        }
+
         .appointment-card {
             background: white;
             padding: 15px;
@@ -73,7 +80,7 @@
 
     <div class="container">
         <h2>Upcoming Appointments</h2>
-        <div id="appointments-list">
+        <div class="grid-container" id="appointments-list">
             <p>Loading appointments...</p>
         </div>
     </div>
