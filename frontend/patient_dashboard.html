@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Patient Dashboard</title>
+    <link rel="stylesheet" href="css/styles.css">
+    <style>
+        .container {
+            max-width: 800px;
+            margin: 50px auto;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .appointment-card {
+            background: white;
+            padding: 15px;
+            border-radius: 10px;
+            box-shadow: 0px 2px 8px rgba(0, 0, 0, 0.1);
+            margin-bottom: 15px;
+            border-left: 5px solid #0dad4a;
+        }
+
+        .appointment-card p {
+            margin: 5px 0;
+        }
+
+        button {
+            background-color: #0dad4a;
+            color: white;
+            padding: 10px;
+            font-size: 16px;
+            border: none;
+            cursor: pointer;
+            margin-top: 15px;
+            border-radius: 5px;
+        }
+
+        button:hover {
+            background-color: #0b8c3c;
+        }
+    </style>
+</head>
+
+<body>
+    <header>
+        <span>Patient Dashboard</span>
+        <button id="logout-btn">Logout</button>
+    </header>
+
+    <div class="container">
+        <h2>Upcoming Appointments</h2>
+        <div id="appointments-list">
+            <p>Loading appointments...</p>
+        </div>
+
+        <button onclick="window.location.href='patient_appointments.html'">View All Appointments</button>
+    </div>
+
+    <script src="js/patient_dashboard.js"></script>
+</body>
+
+</html>
